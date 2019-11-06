@@ -11,19 +11,17 @@ public class LibraryTest {
     private Book book2;
     private Book book3;
     private Book book4;
+    private Borrower borrower;
 
     @Before
     public void before(){
         library = new Library(3);
-        book1 = new Book("The Lord of the Rings", "J.R.R. Tolkien", "Fantasy");
-        book2 = new Book("The Sword of Truth", "T. Goodkind", "Fantasy");
-        book3 = new Book("The Wheel of Time", "R. Jordan", "Fantasy");
-        book4 = new Book("It", "S. King", "Horror");
+        borrower = new Borrower();
     }
 
     @Test
-    public void canCountBooks(){
-        assertEquals(0, library.countBooks());
+    public void canCountLibraryBooks(){
+        assertEquals(0, library.countLibraryBooks());
     }
 
     @Test
@@ -31,9 +29,23 @@ public class LibraryTest {
         library.addBookToLibrary(book1);
         library.addBookToLibrary(book2);
         library.addBookToLibrary(book3);
-        assertEquals(3, library.countBooks());
+        assertEquals(3, library.countLibraryBooks());
         library.addBookToLibrary(book4);
-        assertEquals(3, library.countBooks());
+        assertEquals(3, library.countLibraryBooks());
+    }
+
+    @Test
+    public void canRemoveBook(){
+        library.addBookToLibrary(book4);
+        library.removeBook(book4);
+        assertEquals(0, library.countLibraryBooks());
+    }
+    
+    @Test
+    public void canLendBook(){
+        library.addBookToLibrary(book4);
+        library.lendBook(book4, borrower);
+        assertEquals(0, library.countLibraryBooks());
     }
 
 }
